@@ -1,4 +1,6 @@
+let currentDay = dayjs();
 var intervalId = 0;
+
 
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -32,3 +34,35 @@ function setDate(){
 }
 
 setDate();
+
+function getSchedulerTimeBlock(interval){
+  var timeBlockEl = $('<div>');
+  var timeDivEl = $('<div>');
+  var textareaEl = $('<textarea>');
+  var buttonDiv = $('<button>');
+  var saveIcon = $('<i>');
+
+  saveIcon.addClass("fas fa-save").attr("aria-hidden", "true");
+  buttonDiv.addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save");
+  textareaEl.addClass("col-8 col-md-10 description").attr("rows", "3");
+  timeDivEl.addClass("col-2 col-md-1 hour text-center py-3").text(interval);
+  timeBlockEl.addClass("row time-block past");
+  
+  buttonDiv.append(saveIcon);
+
+  timeBlockEl.append(timeDivEl);
+  timeBlockEl.append(textareaEl);
+  timeBlockEl.append(buttonDiv);
+
+  return timeBlockEl;
+}
+
+function setScheduleView(){
+  for(var i = 0; i < 6; i++){
+    var timeBlockEl = getSchedulerTimeBlock(i + "AM");
+    $('#scheduler-view').append(timeBlockEl);
+  }
+  
+}
+
+// console.log(dayjs.format());
