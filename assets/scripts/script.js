@@ -1,33 +1,118 @@
 let timeBlockFormat = "h:mm A";               // Time block format style
 
+// Default values
 var dayStartTime = dayjs("09:00", "HH:mm");   // Start of work day
 var dayEndTime = dayjs("18:00", "HH:mm");     // End of work day
 var interval = 60;                            // For calculating intervals, default is 60 minutes
 
 
-function setInterval(inter){
-  // if interval is undefined, then set default
-  if(!(inter)){
-    interval = 60;
-    localStorage.setItem("interval", interval);
-    clearSchedule();
-    setScheduleView();
+/*********************************************************************************
+ * 
+ * Function for manually setting start and stop times for the schedule feauture
+ * 
+ *********************************************************************************/
 
-    return true;
-  }
+function loadScheduleStartStop(){
+  // set default start if local storage not set
+  if( !(localStorage.getItem("startTime")) ){
+    setStartTime(dayStartTime.format("HH:mm"));
   
-function isValidTimeFormat(timeStr){
-  if( !(timeStr) ){
-    let timePattern = new RegExp(/^([01]\d|2[0-3]):?([0-5]\d)$/);
+  // else load custom start time
+  } else {
+    setStartTime(localStorage.getItem("startTime"));
+  }
+   
+  // set default end if local storage not set
+  if( !(localStorage.getItem("endTime")) ){
+    setEndTime(dayEndTime.format("HH:mm"));
+  
+  // else load custom end time
+  } else {
+    setEndTime(localStorage.getItem("endTime"));
+  }
+  clearSchedule();
+  setScheduleView();
+}
+
+function setStartTime(timeStr){
+  if( isValidTimeFormat(timeStr) ){
+    var endTime = localStorage.getItem("endTime");
     
-    if( timePattern.test(timeStr) ){
+    // Validate start is before end
+    if( endTime ){
+      if( dayjs(timeStr, "HH:mm").isBefore(dayjs(endTime, "HH:mm")) ){
+        localStorage.setItem("startTime", timeStr);
+        dayStartTime = dayjs(timeStr, "HH:mm");
+        return true;
+
+      } else {
+        console.log("Start time must be before end time");
+        return false;
+      }
+
+    } else {
+      // assume localstorage not set and set it
+      localStorage.setItem("startTime", timeStr);
+      dayStartTime = dayjs(timeStr, "HH:mm");
       return true;
     }
-    return false;
   }
+  // Invalid time format, return false
+  console.log("Times must be in 24 hour format with midnight starting at 00:00");
   return false;
 }
 
+function setEndTime(timeStr){
+  if( isValidTimeFormat(timeStr) ){
+    var startTime = localStorage.getItem("startTime");
+    
+    // Validate end is after start
+    if( startTime ){
+      if( dayjs(timeStr, "HH:mm").isAfter(dayjs(startTime, "HH:mm")) ){
+        localStorage.setItem("endTime", timeStr);
+        dayEndTime = dayjs(timeStr, "HH:mm");
+        return true;
+
+      } else {
+        console.log("End time must be after start time");
+        return false;
+      }
+
+    } else {
+      // assume localstorage not set and set it
+      localStorage.setItem("endTime", timeStr);
+      dayEndTime = dayjs(timeStr, "HH:mm");
+      return true;
+    }
+  }
+  // Invalid time format, return false
+  console.log("Times must be in 24 hour format with midnight starting at 00:00");
+  return false;
+}
+
+function isValidTimeFormat(timeStr){
+  let timePattern = new RegExp(/^([01]\d|2[0-3]):?([0-5]\d)$/);
+  return timePattern.test(timeStr);
+}
+
+
+/*********************************************************************************
+ * 
+ * Function for manually setting time block intervals
+ * 
+ *********************************************************************************/
+
+function loadInterval(){
+  // if interval is not set in local storage, set default
+  if( !(localStorage.getItem("interval")) ){
+    setInterval();
+  } else {
+  // set localStorage value
+    setInterval(localStorage.getItem("interval"));
+  }
+}
+
+function setInterval(inter){
   if( !isNaN(parseInt(inter)) && isValidInterval(parseInt(inter)) ){
     interval = parseInt(inter);
     localStorage.setItem("interval", interval);
@@ -42,9 +127,22 @@ function isValidTimeFormat(timeStr){
   }
 }
 
-function setCurrentTime(){
-  // currentDay = dayjs();
+function isValidInterval(inter){
+  if( inter > 60 ){
+    return false;
+  }
+  if( (60 % inter) > 0 ){
+    return false;
+  }
+  return true;
 }
+
+
+/*********************************************************************************
+ * 
+ * Core functions for web app features
+ * 
+ *********************************************************************************/
 
 function setRows(textAreaEl){
   if(interval === 60){
@@ -72,7 +170,6 @@ function setPastPresentFuture(intervalStart, pastPresentFutureEl){
 function setScheduleView(){
   var intervalStart = dayjs(dayStartTime);
   
-  setCurrentTime();
   while(!(intervalStart.diff(dayEndTime, 'm') === 0)){
     var timeBlockEl = getSchedulerTimeBlock(intervalStart);
 
@@ -135,32 +232,13 @@ function clearSchedule(){
   $('#scheduler-view').html("");
 }
 
-function isValidInterval(inter){
-  if( inter > 60 ){
-    return false;
-  }
-  if( (60 % inter) > 0 ){
-    return false;
-  }
-  return true;
-}
-
-function loadInterval(){
-  // if interval is not set in local storage, set default
-  if( !(localStorage.getItem("interval")) ){
-    setInterval();
-  } else {
-  // set localStorage value
-    setInterval(localStorage.getItem("interval"));
-  }
-}
-
 function displayDate(){
   $('#currentDay').text(dayjs().format('dddd, MMMM Do'));
 }
 
 $(function () {
   displayDate();
+  loadScheduleStartStop();
   loadInterval();
   clearSchedule();
   setScheduleView();
