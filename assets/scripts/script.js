@@ -73,7 +73,7 @@ function getSchedulerTimeBlock(intervalStart){
   setRows(textareaEl);
   
   // create data reference to textarea ID
-  textareaEl.attr('id', 'hour-' + intervalStart.format('hhmm'));
+  timeBlockEl.attr('id', 'hour-' + intervalStart.format('hhmm'));
   buttonDiv.attr('data-hour', intervalStart.format('hhmm'));
 
   buttonDiv.append(saveIcon);
