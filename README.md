@@ -72,7 +72,7 @@ Appending the interval is a future proof measure for now.  I'm looking to add a 
 
 ## Additional Features
 
-* Update Intervals to some fraction of an hour - (Pending: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
+* Update Intervals to some fraction of an hour - (Complete: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
 * Manually set Workday Start/Stop Times - (Pending: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
 * Allow manual date changes - (Pending: [Issue#7](https://github.com/bhaskell7901/day-scheduler/issues/7) )
 * Add a Light/Dark Theme Changer for the page - (Pending: [Issue#13](https://github.com/bhaskell7901/day-scheduler/issues/13) )
@@ -80,7 +80,14 @@ Appending the interval is a future proof measure for now.  I'm looking to add a 
 
 ## Usage
 
-To use Quiz Time, just navigate to the [Live Site](https://bhaskell7901.github.io/quiz-time/).  Once the page loads, click on a schedule block to enter an event.  Click the save button to save the event.  The 
+To use Quiz Time, just navigate to the [Live Site](https://bhaskell7901.github.io/quiz-time/).  Once the page loads, click on a schedule block to enter an event.  Click the save button to save the event.
+
+You can use the console to update the schedule interval to some even fraction of and hour represented in minutes.  Run the code below in console to test it out.
+
+```javascript
+setInterval(30)
+```
+
 
 
 ## Learning Points 
