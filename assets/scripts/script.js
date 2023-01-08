@@ -1,6 +1,8 @@
-let currentDay = dayjs();
-var intervalId = 0;
+let timeBlockFormat = "h:mm A";               // Time block format style
 
+var dayStartTime = dayjs("09:00", "HH:mm");   // Start of work day
+var dayEndTime = dayjs("20:00", "HH:mm");     // End of work day
+var interval = 60;                            // For calculating intervals, default is 60 minutes
 
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -29,27 +31,52 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 });
 
-function setDate(){
+function displayDate(){
   $('#currentDay').text(dayjs().format('dddd, MMMM Do'));
 }
 
-setDate();
+function setCurrentTime(){
+  currentDay = dayjs();
+}
 
-function getSchedulerTimeBlock(interval){
-  var timeBlockEl = $('<div>');
-  var timeDivEl = $('<div>');
-  var textareaEl = $('<textarea>');
-  var buttonDiv = $('<button>');
-  var saveIcon = $('<i>');
+function setRows(textAreaEl){
+  if(interval === 60){
+    textAreaEl.attr('rows', '3');
+  } else if(interval >= 30 && interval < 60) {
+    textAreaEl.attr('rows', '2');
+  } else {
+    textAreaEl.attr('rows', '1');
+  }
 
-  saveIcon.addClass("fas fa-save").attr("aria-hidden", "true");
-  buttonDiv.addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save");
-  textareaEl.addClass("col-8 col-md-10 description").attr("rows", "3");
-  timeDivEl.addClass("col-2 col-md-1 hour text-center py-3").text(interval);
-  timeBlockEl.addClass("row time-block past");
+}
+
+function setPastPresentFuture(intervalStart, pastPresentFutureEl){
+  if( dayjs().isBefore(intervalStart) ){
+    pastPresentFutureEl.addClass("future");
+
+  } else if (dayjs().isSameOrAfter(dayjs(intervalStart.add(interval, 'm')))) {
+    pastPresentFutureEl.addClass("past");
+
+  } else {
+    pastPresentFutureEl.addClass("present");
+  }
+}
+
+function getSchedulerTimeBlock(intervalStart){
+  var timeBlockEl = $('<div>').addClass("row time-block");
+  var timeDivEl = $('<div>').addClass("col-2 col-md-1 hour text-center py-3").text(intervalStart.format(timeBlockFormat));
+  var textareaEl = $('<textarea>').addClass("col-8 col-md-10 description");
+  var buttonDiv = $('<button>').addClass("btn saveBtn col-2 col-md-1").attr("aria-label", "save");
+  var saveIcon = $('<i>').addClass("fas fa-save").attr("aria-hidden", "true");
+
+  setPastPresentFuture(intervalStart, timeBlockEl);
+  setRows(textareaEl);
   
-  buttonDiv.append(saveIcon);
+  // create data reference to textarea ID
+  textareaEl.attr('id', 'hour-' + intervalStart.format('hhmm'));
+  buttonDiv.attr('data-hour', intervalStart.format('hhmm'));
 
+  buttonDiv.append(saveIcon);
   timeBlockEl.append(timeDivEl);
   timeBlockEl.append(textareaEl);
   timeBlockEl.append(buttonDiv);
@@ -58,11 +85,16 @@ function getSchedulerTimeBlock(interval){
 }
 
 function setScheduleView(){
-  for(var i = 0; i < 6; i++){
-    var timeBlockEl = getSchedulerTimeBlock(i + "AM");
+  var intervalStart = dayjs(dayStartTime);
+  
+  setCurrentTime();
+  while(!(intervalStart.diff(dayEndTime, 'm') === 0)){
+    var timeBlockEl = getSchedulerTimeBlock(intervalStart);
+
     $('#scheduler-view').append(timeBlockEl);
+    intervalStart = dayjs(intervalStart.add(interval, 'm'));
   }
   
 }
 
-// console.log(dayjs.format());
+displayDate();
