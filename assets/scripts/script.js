@@ -5,8 +5,33 @@ var dayEndTime = dayjs("18:00", "HH:mm");     // End of work day
 var interval = 60;                            // For calculating intervals, default is 60 minutes
 
 
+function setInterval(inter){
+  // if interval is undefined, then set default
+  if(!(inter)){
+    interval = 60;
+    localStorage.setItem("interval", interval);
+    clearSchedule();
+    setScheduleView();
+
+    return true;
+  }
+  
+  if( !isNaN(parseInt(inter)) && isValidInterval(parseInt(inter)) ){
+    interval = parseInt(inter);
+    localStorage.setItem("interval", interval);
+    clearSchedule();
+    setScheduleView();
+
+    return true;
+  } else {
+
+    console.log("Your interval must be less than or equal to, and evenly divide 60");
+    return false;
+  }
+}
+
 function setCurrentTime(){
-  currentDay = dayjs();
+  // currentDay = dayjs();
 }
 
 function setRows(textAreaEl){
@@ -94,6 +119,29 @@ function getSchedulerTimeBlock(intervalStart){
   return timeBlockEl;
 }
 
+function clearSchedule(){
+  $('#scheduler-view').html("");
+}
+
+function isValidInterval(inter){
+  if( inter > 60 ){
+    return false;
+  }
+  if( (60 % inter) > 0 ){
+    return false;
+  }
+  return true;
+}
+
+function loadInterval(){
+  // if interval is not set in local storage, set default
+  if( !(localStorage.getItem("interval")) ){
+    setInterval();
+  } else {
+  // set localStorage value
+    setInterval(localStorage.getItem("interval"));
+  }
+}
 
 function displayDate(){
   $('#currentDay').text(dayjs().format('dddd, MMMM Do'));
@@ -101,5 +149,7 @@ function displayDate(){
 
 $(function () {
   displayDate();
+  loadInterval();
+  clearSchedule();
   setScheduleView();
 });
