@@ -1,7 +1,7 @@
 let timeBlockFormat = "h:mm A";               // Time block format style
 
 var dayStartTime = dayjs("09:00", "HH:mm");   // Start of work day
-var dayEndTime = dayjs("20:00", "HH:mm");     // End of work day
+var dayEndTime = dayjs("18:00", "HH:mm");     // End of work day
 var interval = 60;                            // For calculating intervals, default is 60 minutes
 
 
