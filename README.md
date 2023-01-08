@@ -72,10 +72,10 @@ Appending the interval is a future proof measure for now.  I'm looking to add a 
 
 ## Additional Features
 
-* Update Intervals to some fraction of an hour (Pending: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
-* Manually set Workday Start/Stop Times (Pending: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
-* Allow manual date changes (Pending: [Issue#7](https://github.com/bhaskell7901/day-scheduler/issues/7) )
-* Add a Light/Dark Theme Changer for the page (Pending: [Issue#13](https://github.com/bhaskell7901/day-scheduler/issues/13) )
+* Update Intervals to some fraction of an hour - (Pending: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
+* Manually set Workday Start/Stop Times - (Pending: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
+* Allow manual date changes - (Pending: [Issue#7](https://github.com/bhaskell7901/day-scheduler/issues/7) )
+* Add a Light/Dark Theme Changer for the page - (Pending: [Issue#13](https://github.com/bhaskell7901/day-scheduler/issues/13) )
 
 
 ## Usage
@@ -85,9 +85,14 @@ To use Quiz Time, just navigate to the [Live Site](https://bhaskell7901.github.i
 
 ## Learning Points 
 
+I also learned about the ```Day.js``` library and how to load plugins from the web page.  This is a very flexible library that can grow and shrink to meet project needs.  I love it and it's definitiley going into my list of libraries to use.
+
 For this project, I wanted to try out the Project feature in GitHub for tracking this project and future ones.  I'm still getting used to it, but it has helped me to better breakdown the projects and track progress/updates.
 
-I also learned about the ```Day.js``` library and how to load plugins from the web page.  This is a very flexible library that can grow and shrink to meet project needs.  I love it and it's definitiley going into my list of libraries to use.
+**Proejct View Snapshot**
+
+![image of project view in GitHub](https://github.com/bhaskell7901/day-scheduler/blob/main/assets/images/day-scheduler-github-project.png))
+
 
 
 ## Author Info
