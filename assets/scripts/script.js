@@ -16,6 +16,18 @@ function setInterval(inter){
     return true;
   }
   
+function isValidTimeFormat(timeStr){
+  if( !(timeStr) ){
+    let timePattern = new RegExp(/^([01]\d|2[0-3]):?([0-5]\d)$/);
+    
+    if( timePattern.test(timeStr) ){
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
+
   if( !isNaN(parseInt(inter)) && isValidInterval(parseInt(inter)) ){
     interval = parseInt(inter);
     localStorage.setItem("interval", interval);
