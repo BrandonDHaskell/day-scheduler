@@ -76,6 +76,7 @@ Appending the interval is a future proof measure for now.  I'm looking to add a 
 * Manually set Workday Start/Stop Times - (Complete: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
 * Allow manual date changes - (Pending: [Issue#7](https://github.com/bhaskell7901/day-scheduler/issues/7) )
 * Add a Light/Dark Theme Changer for the page - (Pending: [Issue#13](https://github.com/bhaskell7901/day-scheduler/issues/13) )
+* Add timer to update Time Blocks - (Pending: [Issue#17](https://github.com/bhaskell7901/day-scheduler) )
 
 
 ## Usage
