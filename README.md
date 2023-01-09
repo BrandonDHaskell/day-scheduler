@@ -73,7 +73,7 @@ Appending the interval is a future proof measure for now.  I'm looking to add a 
 ## Bonus Features
 
 * Update Intervals to some fraction of an hour - (Complete: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
-* Manually set Workday Start/Stop Times - (Pending: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
+* Manually set Workday Start/Stop Times - (Complete: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )
 * Allow manual date changes - (Pending: [Issue#7](https://github.com/bhaskell7901/day-scheduler/issues/7) )
 * Add a Light/Dark Theme Changer for the page - (Pending: [Issue#13](https://github.com/bhaskell7901/day-scheduler/issues/13) )
 
@@ -88,6 +88,15 @@ You can use the console to update the schedule interval to some even fraction of
 setInterval(30)
 ```
 
+You can also use the console to update the start and end for the workday.  Use the ```setStartTime()``` or ```setEndTime()``` functions to update the schdeule.  The use the ```loadScheduleStartStop()``` function to push the udates to the page.
+
+For example, executing the following, will update the page to start at 5:00 AM and end at 8:00 PM.
+
+```javascript
+setStartTime("05:00");
+setStartTime("20:00");
+loadScheduleStartStop();
+```
 
 
 ## Learning Points 
