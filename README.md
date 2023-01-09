@@ -88,7 +88,7 @@ You can use the console to update the schedule interval to some even fraction of
 setInterval(30)
 ```
 
-You can also use the console to update the start and end for the workday.  Use the ```setStartTime()``` or ```setEndTime()``` functions to update the schdeule.  The use the ```loadScheduleStartStop()``` function to push the udates to the page.
+You can also use the console to update the start and end for the workday.  Use the ```setStartTime()``` or ```setEndTime()``` functions to update the schdeule.  The use the ```loadScheduleStartStop()``` function to push the udates to the page.  Times must be submitted in the ```Day.js``` format of ```"HH:mm"```.
 
 For example, executing the following, will update the page to start at 5:00 AM and end at 8:00 PM.
 
