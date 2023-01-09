@@ -70,7 +70,7 @@ Using this naming convention for IDs ensures that each storage location in ```lo
 Appending the interval is a future proof measure for now.  I'm looking to add a feature that will allow a user to change the interval from 1 hour to some fraction of an hour if they would like to.  Appending the interval ensures their are no collisions if a user swithces between intervals within the same day.
 
 
-## Additional Features
+## Bonus Features
 
 * Update Intervals to some fraction of an hour - (Complete: [Issue#6](https://github.com/bhaskell7901/day-scheduler/issues/6) )
 * Manually set Workday Start/Stop Times - (Pending: [Issue#14](https://github.com/bhaskell7901/day-scheduler/issues/13) )

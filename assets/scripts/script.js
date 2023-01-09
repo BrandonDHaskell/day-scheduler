@@ -105,7 +105,7 @@ function isValidTimeFormat(timeStr){
 function loadInterval(){
   // if interval is not set in local storage, set default
   if( !(localStorage.getItem("interval")) ){
-    setInterval();
+    setInterval(interval);
   } else {
   // set localStorage value
     setInterval(localStorage.getItem("interval"));
