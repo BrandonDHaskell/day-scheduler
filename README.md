@@ -4,7 +4,7 @@ Welcome to Daily Scheduler!  Feel free to try it out at the deployed site below.
 
 Track your schedule with Daily Scheduler!
 
-See the [Deployed Site](https://bhaskell7901.github.io/day-scheduler/)
+See the [Deployed Site](https://BrandonDHaskell.github.io/day-scheduler/)
 
 
 ## Table of Contents
